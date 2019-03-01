@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="main.css">
+    <title>Vue beginner</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="shopping-list">
+        <h1>{{header.toLocaleUpperCase()}}</h1>
+        <ul>
+            <li v-for="clause in clauses">{{clause}}</li>
+        </ul>
+        <input type="text" v-model="newClause" placeholder="Add new clause" @keyup.enter="pushNewItem">
+        <button class="btn btn-primary" @click="pushNewItem">Add new</button>
+    </div>
+    <script>
+        var boxVue = new Vue({
+            el: "#shopping-list",
+            data: {
+                header: 'Vue Fundametals',
+                newClause: '',
+                clauses: [
+                    'First Clause',
+                    'Second Clause',
+                    'Third Clause',
+                    'Fourth Clause'
+                ]
+            },
+            methods: {
+                pushNewItem() {
+                    this.clauses.push(this.newClause);
+                    this.newClause = '';
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
