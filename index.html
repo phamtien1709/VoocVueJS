@@ -12,30 +12,42 @@
 
 <body>
     <div id="shopping-list">
-        <h1>{{header.toLocaleUpperCase()}}</h1>
+        <div class="header">
+            <h1>{{header.toLocaleUpperCase()}}</h1>
+            <button v-if="state=='default'" class="btn btn-primary" @click="changeState">Add Cart</button>
+            <button v-else class="btn btn-cancel" @click="changeState">Cancle</button>
+        </div>
+        <div v-if="state =='edit'" class="add-item-form">
+            <input type="text" v-model="newItem" placeholder="Add new clause" @keyup.enter="pushNewItem">
+            <button class="btn btn-primary" :disabled="newItem.length == 0" @click="pushNewItem">Add new</button>
+        </div>
         <ul>
-            <li v-for="clause in clauses">{{clause}}</li>
+            <li v-for="clause in items">{{clause}}</li>
         </ul>
-        <input type="text" v-model="newClause" placeholder="Add new clause" @keyup.enter="pushNewItem">
-        <button class="btn btn-primary" @click="pushNewItem">Add new</button>
+        <h2 v-if="items.length==0">Empty Cart</h2>
     </div>
     <script>
         var boxVue = new Vue({
             el: "#shopping-list",
             data: {
-                header: 'Vue Fundametals',
-                newClause: '',
-                clauses: [
-                    'First Clause',
-                    'Second Clause',
-                    'Third Clause',
-                    'Fourth Clause'
+                state: 'default',
+                header: 'Okay shopping is shopping',
+                newItem: '',
+                items: [
+
                 ]
             },
             methods: {
                 pushNewItem() {
-                    this.clauses.push(this.newClause);
-                    this.newClause = '';
+                    this.items.push(this.newItem);
+                    this.newItem = '';
+                },
+                changeState() {
+                    if (this.state == 'default') {
+                        this.state = 'edit';
+                    } else {
+                        this.state = 'default';
+                    }
                 }
             }
         })
