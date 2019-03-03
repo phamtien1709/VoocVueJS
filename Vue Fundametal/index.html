@@ -18,14 +18,24 @@
             <button v-else class="btn btn-cancel" @click="changeState">Cancle</button>
         </div>
         <div v-if="state =='edit'" class="add-item-form">
-            <input type="text" v-model="newItem" placeholder="Add new clause" @keyup.enter="pushNewItem">
+            <input type="text" v-model="newItem" placeholder="Add new item" @keyup.enter="pushNewItem">
             <button class="btn btn-primary" :disabled="newItem.length == 0" @click="pushNewItem">Add new</button>
         </div>
         <ul>
-            <li v-for="clause in items">{{clause}}</li>
+            <li v-for="item in reverseItems" :class="{ strikeout: item.purchased }" @click="togglePurchased(item)">
+                {{item.label}}</li>
         </ul>
         <h2 v-if="items.length==0">Empty Cart</h2>
     </div>
+    <br>
+    <br>
+    <div id="app">
+        <click-counter></click-counter>
+        <click-counter></click-counter>
+        <click-counter></click-counter>
+        <click-counter></click-counter>
+    </div>
+    <!-- script -->
     <script>
         var boxVue = new Vue({
             el: "#shopping-list",
@@ -34,12 +44,32 @@
                 header: 'Okay shopping is shopping',
                 newItem: '',
                 items: [
-
+                    {
+                        label: "Meat",
+                        purchased: false
+                    },
+                    {
+                        label: "Vegetable",
+                        purchased: false
+                    },
+                    {
+                        label: "Fruit",
+                        purchased: true
+                    }
                 ]
+            },
+            computed: {
+                reverseItems() {
+                    return this.items.slice(0).reverse();
+                }
             },
             methods: {
                 pushNewItem() {
-                    this.items.push(this.newItem);
+                    let newItem = {
+                        label: this.newItem,
+                        purchased: false
+                    }
+                    this.items.push(newItem);
                     this.newItem = '';
                 },
                 changeState() {
@@ -48,10 +78,14 @@
                     } else {
                         this.state = 'default';
                     }
+                },
+                togglePurchased(item) {
+                    item.purchased = !item.purchased;
                 }
             }
         })
     </script>
+    <script src="app.js"></script>
 </body>
 
 </html>
