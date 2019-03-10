@@ -10,27 +10,29 @@
     <div class="post-content">
       <div>{{post.text}}</div>
     </div>
-    <div class="post-date text-faded">{{post.publishedAt}}</div>
+    <div class="post-date text-faded">
+      <app-date :timestamp="post.publishedAt"></app-date>
+    </div>
   </div>
 </template>
 
 <script>
-import sourceData from '../data.json'
-export default {
-  name: 'post-list-item',
-  props: {
-    post: {
-      required: true,
-      type: Object
-    }
-  },
-  computed: {
-    user () {
-      return sourceData.users[this.post.userId]
+  import sourceData from '../data.json'
+  export default {
+    name: 'post-list-item',
+    props: {
+      post: {
+        required: true,
+        type: Object
+      }
     },
-    userPostCount () {
-      return Object.keys(this.user.posts).length
+    computed: {
+      user () {
+        return sourceData.users[this.post.userId]
+      },
+      userPostCount () {
+        return Object.keys(this.user.posts).length
+      }
     }
   }
-}
 </script>

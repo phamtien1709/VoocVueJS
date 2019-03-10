@@ -7,7 +7,8 @@
       <p class="text-faded text-xsmall">
         By
         <a>{{users.name}}</a>
-        , {{thread.publishedAt}}.
+        ,
+        <app-date :timestamp="thread.publishedAt"></app-date>.
       </p>
     </div>
 
