@@ -10,15 +10,20 @@
   import shop from '../api/shop.js'
   export default {
     name: 'product-list',
-    data() {
+    data () {
       return {
-        products: []
+        loading: false
+      }
+    },
+    computed: {
+      products () {
+        return this.$store.getters.availableProducts
       }
     },
     created () {
-      shop.getProducts(products => {
-        this.products = products
-      })
+      this.loading = true
+      this.$store.dispatch('fetchProducts')
+        .then(() => this.loading = false)
     }
   }
 </script>
