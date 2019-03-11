@@ -1,25 +1,24 @@
 <template>
   <div class="col-full">
-    <thread-list :threads="threads"></thread-list>
+    <h1>Welcome to the Forum</h1>
+    <category-list :categories="categories"></category-list>
   </div>
 </template>
 
 <script>
 import sourceData from '../data.json'
-import ThreadListVue from '../components/ThreadList.vue'
+import CategoryListVue from '../components/CategoryList.vue'
 //
 export default {
   name: 'PageHome',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      threads: Object.values(sourceData.threads),
-      posts: sourceData.posts,
-      users: sourceData.users
+      categories: Object.values(sourceData.categories)
     }
   },
   components: {
-    'thread-list': ThreadListVue
+    'category-list': CategoryListVue
   }
 }
 </script>
