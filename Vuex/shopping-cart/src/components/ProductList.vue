@@ -2,7 +2,10 @@
   <div>
     <h1>Product List</h1>
     <ul>
-      <li v-for="product in products" :key="product.id">{{product.title}} - {{product.price}}</li>
+      <li v-for="product in products" :key="product.id">
+        {{product.title}} - {{product.price}}
+        <button @click="addProductToCart(product)">Add to cart</button>
+      </li>
     </ul>
   </div>
 </template>
@@ -24,6 +27,11 @@
       this.loading = true
       this.$store.dispatch('fetchProducts')
         .then(() => this.loading = false)
+    },
+    methods: {
+      addProductToCart (product) {
+        this.$store.dispatch('addProductToCart', product)
+      }
     }
   }
 </script>
