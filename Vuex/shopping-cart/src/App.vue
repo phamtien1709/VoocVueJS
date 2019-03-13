@@ -2,16 +2,20 @@
   <div id="app">
     <img src="./assets/logo.png">
     <product-list></product-list>
+    <hr>
+    <shopping-cart></shopping-cart>
   </div>
 </template>
 
 <script>
 import ProductListVue from './components/ProductList.vue'
+import ShoppingCartVue from './components/ShoppingCart.vue';
 
 export default {
   name: 'app',
   components: {
-    'product-list': ProductListVue
+    'product-list': ProductListVue,
+    'shopping-cart': ShoppingCartVue
   }
 }
 </script>
