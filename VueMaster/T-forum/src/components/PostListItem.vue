@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import sourceData from '../data.json'
+  
   export default {
     name: 'post-list-item',
     props: {
@@ -28,7 +28,7 @@
     },
     computed: {
       user () {
-        return sourceData.users[this.post.userId]
+        return this.$store.state.users[this.post.userId]
       },
       userPostCount () {
         return Object.keys(this.user.posts).length

@@ -6,15 +6,18 @@
 </template>
 
 <script>
-import sourceData from '../data.json'
 import CategoryListVue from '../components/CategoryList.vue'
 //
 export default {
   name: 'PageHome',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      categories: Object.values(sourceData.categories)
+      msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  computed: {
+    categories() {
+      return Object.values(this.$store.state.categories)
     }
   },
   components: {

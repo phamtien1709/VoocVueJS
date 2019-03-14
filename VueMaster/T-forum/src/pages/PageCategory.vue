@@ -5,7 +5,6 @@
   </div>
 </template>
 <script>
-import sourceData from '../data.json'
 import CategoryListItemVue from '../components/CategoryListItem.vue'
 export default {
   name: 'page-category',
@@ -20,7 +19,7 @@ export default {
   },
   computed: {
     category () {
-      return sourceData.categories[this.id]
+      return this.$store.state.categories[this.id]
     }
   }
 }

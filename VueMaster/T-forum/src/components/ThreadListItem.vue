@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import sourceData from '../data.json'
+
 
 export default {
   name: 'ThreadListItem',
@@ -39,7 +39,7 @@ export default {
   },
   data () {
     return {
-      usersData: sourceData.users
+      usersData: this.$store.state.users
     }
   },
   computed: {

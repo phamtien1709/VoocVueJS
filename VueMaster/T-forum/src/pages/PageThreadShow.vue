@@ -16,11 +16,9 @@
 </template>
 
 <script>
-  import sourceData from '@/data.json'
   import PostListVue from '../components/PostList.vue'
   import PostEditorVue from '../components/PostEditor.vue'
 
-  console.log(sourceData)
   export default {
     name: 'thread-show',
     components: {
@@ -35,13 +33,13 @@
     },
     data () {
       return {
-        thread: sourceData.threads[this.id]
+        thread: this.$store.state.threads[this.id]
       }
     },
     computed: {
       posts () {
         const postId = Object.values(this.thread.posts)
-        return Object.values(sourceData.posts)
+        return Object.values(this.$store.state.posts)
           .filter(post => postId.includes(post['.key']))
       }
     },
@@ -49,9 +47,9 @@
       savePost (postData) {
         let post = postData.post
         let postId = postData.post['.key']
-        this.$set(sourceData.posts, postId, post)
+        this.$set(this.$store.state.posts, postId, post)
         this.$set(this.thread.posts, postId, postId)
-        this.$set(sourceData.users[post.userId].posts, postId, postId)
+        this.$set(this.$store.state.users[post.userId].posts, postId, postId)
       }
     }
   }
