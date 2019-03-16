@@ -11,7 +11,7 @@
       >3 replies by 3 contributors</span>
     </p>
     <post-list :posts="posts"></post-list>
-    <post-editor @save="savePost" :threadId="id"></post-editor>
+    <post-editor :threadId="id"></post-editor>
   </div>
 </template>
 
@@ -41,15 +41,6 @@
         const postId = Object.values(this.thread.posts)
         return Object.values(this.$store.state.posts)
           .filter(post => postId.includes(post['.key']))
-      }
-    },
-    methods: {
-      savePost (postData) {
-        let post = postData.post
-        let postId = postData.post['.key']
-        this.$set(this.$store.state.posts, postId, post)
-        this.$set(this.thread.posts, postId, postId)
-        this.$set(this.$store.state.users[post.userId].posts, postId, postId)
       }
     }
   }
