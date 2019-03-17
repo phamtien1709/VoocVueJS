@@ -31,16 +31,14 @@
         type: String
       }
     },
-    data () {
-      return {
-        thread: this.$store.state.threads[this.id]
-      }
-    },
     computed: {
       posts () {
         const postId = Object.values(this.thread.posts)
         return Object.values(this.$store.state.posts)
           .filter(post => postId.includes(post['.key']))
+      },
+      thread () {
+        return this.$store.state.threads[this.id]
       }
     }
   }

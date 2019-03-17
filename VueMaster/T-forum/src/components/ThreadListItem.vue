@@ -27,7 +27,7 @@
 </template>
 
 <script>
-
+import { countObjectProperties } from '../utils/index.js'
 
 export default {
   name: 'ThreadListItem',
@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     replyCount () {
-      return Object.keys(this.thread.posts).length - 1
+      return countObjectProperties(this.thread.posts) - 1
     },
     users () {
       return this.usersData[this.thread.userId]
