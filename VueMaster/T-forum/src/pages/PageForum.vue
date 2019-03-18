@@ -6,7 +6,10 @@
           <h1>{{forum.name}}</h1>
           <p class="text-lead">{{forum.description}}</p>
         </div>
-        <a href="new-thread.html" class="btn-green btn-small">Start a thread</a>
+        <router-link
+          :to="{name: 'ThreadCreate', params: {forumId: this.forum['.key']}}"
+          class="btn-green btn-small"
+        >Start a thread</router-link>
       </div>
     </div>
 
@@ -16,29 +19,30 @@
   </div>
 </template>
 <script>
-  import ThreadListVue from '../components/ThreadList.vue'
-  
-  export default {
-    name: 'page-forum',
-    components: {
-      'thread-list': ThreadListVue
+import ThreadListVue from "../components/ThreadList.vue";
+
+export default {
+  name: "page-forum",
+  components: {
+    "thread-list": ThreadListVue
+  },
+  props: {
+    id: {
+      required: true,
+      type: String
+    }
+  },
+  computed: {
+    forum() {
+      return this.$store.state.forums[this.id];
     },
-    props: {
-      id: {
-        required: true,
-        type: String
-      }
-    },
-    computed: {
-      forum () {
-        return this.$store.state.forums[this.id]
-      },
-      threads () {
-        return Object.values(this.$store.state.threads)
-          .filter(thread => thread.forumId === this.id)
-      }
+    threads() {
+      return Object.values(this.$store.state.threads).filter(
+        thread => thread.forumId === this.id
+      );
     }
   }
+};
 </script>
 <style scoped>
 .forum-wrapper {
