@@ -1,6 +1,10 @@
 <template>
   <div class="col-large push-top">
     <h1>{{thread.title}}</h1>
+    <router-link
+      :to="{name: 'ThreadEdit', params: {id: this.thread['.key']}}"
+      class="btn-green btn-small"
+    >Edit thread</router-link>
     <p>
       By
       <a href="#" class="link-unstyled">Robin</a>,
@@ -16,30 +20,31 @@
 </template>
 
 <script>
-  import PostListVue from '../components/PostList.vue'
-  import PostEditorVue from '../components/PostEditor.vue'
+import PostListVue from "../components/PostList.vue";
+import PostEditorVue from "../components/PostEditor.vue";
 
-  export default {
-    name: 'thread-show',
-    components: {
-      'post-list': PostListVue,
-      'post-editor': PostEditorVue
+export default {
+  name: "thread-show",
+  components: {
+    "post-list": PostListVue,
+    "post-editor": PostEditorVue
+  },
+  props: {
+    id: {
+      required: true,
+      type: String
+    }
+  },
+  computed: {
+    posts() {
+      const postId = Object.values(this.thread.posts);
+      return Object.values(this.$store.state.posts).filter(post =>
+        postId.includes(post[".key"])
+      );
     },
-    props: {
-      id: {
-        required: true,
-        type: String
-      }
-    },
-    computed: {
-      posts () {
-        const postId = Object.values(this.thread.posts)
-        return Object.values(this.$store.state.posts)
-          .filter(post => postId.includes(post['.key']))
-      },
-      thread () {
-        return this.$store.state.threads[this.id]
-      }
+    thread() {
+      return this.$store.state.threads[this.id];
     }
   }
+};
 </script>

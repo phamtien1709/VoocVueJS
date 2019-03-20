@@ -7,6 +7,7 @@ import Forum from '../pages/PageForum'
 import Category from '../pages/PageCategory'
 import Profile from '../pages/PageProfile'
 import ThreadCreate from '../pages/PageThreadCreate.vue'
+import ThreadEdit from '../pages/PageThreadEdit.vue'
 
 Vue.use(Router)
 
@@ -27,6 +28,12 @@ export default new Router({
       path: '/thread/create/:forumId',
       name: 'ThreadCreate',
       component: ThreadCreate,
+      props: true
+    },
+    {
+      path: '/thread/:id/edit',
+      name: 'ThreadEdit',
+      component: ThreadEdit,
       props: true
     },
     {

@@ -3,13 +3,13 @@
     <form @submit.prevent="save">
       <div class="form-group">
         <label for="thread_title">Title:</label>
-        <input v-model="title" type="text" id="thread_title" class="form-input" name="title">
+        <input v-model="form.title" type="text" id="thread_title" class="form-input" name="title">
       </div>
 
       <div class="form-group">
         <label for="thread_content">Content:</label>
         <textarea
-          v-model="text"
+          v-model="form.text"
           id="thread_content"
           class="form-input"
           name="content"
@@ -20,7 +20,11 @@
 
       <div class="btn-group">
         <button @click.prevent="cancel" class="btn btn-ghost">Cancel</button>
-        <button class="btn btn-blue" type="submit" name="Publish">Publish</button>
+        <button
+          class="btn btn-blue"
+          type="submit"
+          name="Publish"
+        >{{isUpdate ? 'Update' : 'Publish'}}</button>
       </div>
     </form>
   </div>
@@ -30,13 +34,30 @@
 export default {
   data() {
     return {
-      title: "",
-      text: ""
+      form: {
+        title: this.title,
+        text: this.text
+      }
     };
+  },
+  computed: {
+    isUpdate() {
+      return !!this.title;
+    }
+  },
+  props: {
+    title: {
+      type: String,
+      default: ""
+    },
+    text: {
+      type: String,
+      default: ""
+    }
   },
   methods: {
     save() {
-      this.$emit("save", { title: this.title, text: this.text });
+      this.$emit("save", { title: this.form.title, text: this.form.text });
     },
 
     cancel() {
