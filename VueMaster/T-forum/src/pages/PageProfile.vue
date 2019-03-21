@@ -1,17 +1,7 @@
 <template>
   <div class="flex-grid">
-    <user-profile-card
-      v-if="!edit"
-      :user="user"
-      :userPostsCount="userPostsCount"
-      :userThreadsCount="userThreadsCount"
-    ></user-profile-card>
-    <user-profile-card-editor
-      v-else
-      :user="user"
-      :userPostsCount="userPostsCount"
-      :userThreadsCount="userThreadsCount"
-    ></user-profile-card-editor>
+    <user-profile-card v-if="!edit" :user="user"></user-profile-card>
+    <user-profile-card-editor v-else :user="user"></user-profile-card-editor>
     <div class="col-7 push-top">
       <div class="profile-header">
         <span class="text-lead">{{user.username}}'s recent activity</span>
@@ -24,14 +14,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import PostListVue from '../components/PostList.vue';
-import { countObjectProperties } from '../utils/index.js'
-import UserProfileCardVue from '../components/UserProfileCard.vue';
-import UserProfileCardEditorVue from '../components/UserProfileCardEditor.vue';
+import { mapGetters } from "vuex";
+import PostListVue from "../components/PostList.vue";
+import UserProfileCardVue from "../components/UserProfileCard.vue";
+import UserProfileCardEditorVue from "../components/UserProfileCardEditor.vue";
 
 export default {
-  name: 'page-profile',
+  name: "page-profile",
   props: {
     edit: {
       type: Boolean,
@@ -39,30 +28,23 @@ export default {
     }
   },
   components: {
-    'post-list': PostListVue,
-    'user-profile-card': UserProfileCardVue,
-    'user-profile-card-editor': UserProfileCardEditorVue
+    "post-list": PostListVue,
+    "user-profile-card": UserProfileCardVue,
+    "user-profile-card-editor": UserProfileCardEditorVue
   },
   computed: {
     ...mapGetters({
-      'user': 'authUser'
+      user: "authUser"
     }),
 
-    userPostsCount(){
-      return countObjectProperties(this.user.posts)
-    },
-
-    userThreadsCount(){
-      return countObjectProperties(this.user.threads)
-    },
-
-    userPosts(){
+    userPosts() {
       if (this.user.posts) {
-            return Object.values(this.$store.state.posts)
-              .filter(post => post.userId === this.user['.key'])
-          }
-          return []
+        return Object.values(this.$store.state.posts).filter(
+          post => post.userId === this.user[".key"]
+        );
+      }
+      return [];
     }
   }
-}
+};
 </script>

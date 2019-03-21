@@ -5,34 +5,61 @@
       <a href="#">
         <img class="avatar-large" :src="user.avatar" alt>
       </a>
-      <p class="desktop-only text-small">{{userPostCount}} posts</p>
+      <p class="desktop-only text-small">{{userThreadsCount}} threads</p>
+      <p class="desktop-only text-small">{{userPostsCount}} posts</p>
     </div>
     <div class="post-content">
-      <div>{{post.text}}</div>
+      <template v-if="!editing">
+        <div>{{post.text}}</div>
+        <a
+          @click.prevent="editing = true"
+          href="#"
+          style="margin-left: auto;"
+          class="link-unstyled"
+          title="Make a change"
+        >
+          <i class="fa fa-pencil"></i>
+        </a>
+      </template>
+      <div v-else>
+        <post-editor :post="post" @save="editing = false" @cancel="editing = false"></post-editor>
+      </div>
     </div>
     <div class="post-date text-faded">
+      <div v-if="!!post.edited" class="edition-info">edited</div>
       <app-date :timestamp="post.publishedAt"></app-date>
     </div>
   </div>
 </template>
 
 <script>
-  import { countObjectProperties } from '../utils/index.js'
-  export default {
-    name: 'post-list-item',
-    props: {
-      post: {
-        required: true,
-        type: Object
-      }
+import PostEditorVue from "./PostEditor.vue";
+export default {
+  name: "post-list-item",
+  props: {
+    post: {
+      required: true,
+      type: Object
+    }
+  },
+  data() {
+    return {
+      editing: false
+    };
+  },
+  components: {
+    "post-editor": PostEditorVue
+  },
+  computed: {
+    user() {
+      return this.$store.state.users[this.post.userId];
     },
-    computed: {
-      user () {
-        return this.$store.state.users[this.post.userId]
-      },
-      userPostCount () {
-        return countObjectProperties(this.user.posts)
-      }
+    userPostsCount() {
+      return this.$store.getters.userPostsCount(this.post.userId);
+    },
+    userThreadsCount() {
+      return this.$store.getters.userThreadsCount(this.post.userId);
     }
   }
+};
 </script>

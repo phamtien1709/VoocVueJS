@@ -76,29 +76,29 @@ export default {
     user: {
       required: true,
       type: Object
+    }
+  },
+  computed: {
+    userThreadsCount() {
+      return this.$store.getters.userThreadsCount(this.user[".key"]);
     },
-    userPostsCount: {
-      required: true,
-      type: Number
-    },
-    userThreadsCount: {
-      required: true,
-      type: Number
+    userPostsCount() {
+      return this.$store.getters.userPostsCount(this.user[".key"]);
     }
   },
   data() {
     return {
-      activeUser: {...this.user}
-    }
+      activeUser: { ...this.user }
+    };
   },
   methods: {
-    save () {
-      this.$store.dispatch('updateUser', {...this.activeUser})
-      this.$router.push({name: 'Profile'})
+    save() {
+      this.$store.dispatch("updateUser", { ...this.activeUser });
+      this.$router.push({ name: "Profile" });
     },
-    cancel () {
-      this.$router.push({name: 'Profile'})
+    cancel() {
+      this.$router.push({ name: "Profile" });
     }
   }
-}
+};
 </script>

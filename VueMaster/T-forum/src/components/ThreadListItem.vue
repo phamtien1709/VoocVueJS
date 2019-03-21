@@ -27,28 +27,28 @@
 </template>
 
 <script>
-import { countObjectProperties } from '../utils/index.js'
+import { countObjectProperties } from "../utils/index.js";
 
 export default {
-  name: 'ThreadListItem',
+  name: "ThreadListItem",
   props: {
     thread: {
       required: true,
       type: Object
     }
   },
-  data () {
+  data() {
     return {
       usersData: this.$store.state.users
-    }
+    };
   },
   computed: {
-    replyCount () {
-      return countObjectProperties(this.thread.posts) - 1
+    replyCount() {
+      return this.$store.getters.threadRepliesCount(this.thread[".key"]);
     },
-    users () {
-      return this.usersData[this.thread.userId]
+    users() {
+      return this.usersData[this.thread.userId];
     }
   }
-}
+};
 </script>
