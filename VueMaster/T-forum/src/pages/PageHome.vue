@@ -6,24 +6,33 @@
 </template>
 
 <script>
-import CategoryListVue from '../components/CategoryList.vue'
+import CategoryListVue from "../components/CategoryList.vue";
 //
 export default {
-  name: 'PageHome',
-  data () {
+  name: "PageHome",
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+      msg: "Welcome to Your Vue.js App"
+    };
   },
   computed: {
     categories() {
-      return Object.values(this.$store.state.categories)
+      return Object.values(this.$store.state.categories);
     }
   },
+  beforeCreate() {
+    this.$store.dispatch("fetchAllCategories").then(categories => {
+      categories.forEach(category =>
+        this.$store.dispatch("fetchForums", {
+          ids: Object.keys(category.forums)
+        })
+      );
+    });
+  },
   components: {
-    'category-list': CategoryListVue
+    "category-list": CategoryListVue
   }
-}
+};
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
