@@ -1,12 +1,12 @@
 <template>
-  <div class="thread">
+  <div v-if="thread && user" class="thread">
     <div>
       <p>
         <router-link :to="{name:'ThreadShow', params:{id:thread['.key']}}">{{thread.title}}</router-link>
       </p>
       <p class="text-faded text-xsmall">
         By
-        <a>{{users.name}}</a>
+        <a>{{user.name}}</a>
         ,
         <app-date :timestamp="thread.publishedAt"></app-date>.
       </p>
@@ -46,7 +46,7 @@ export default {
     replyCount() {
       return this.$store.getters.threadRepliesCount(this.thread[".key"]);
     },
-    users() {
+    user() {
       return this.usersData[this.thread.userId];
     }
   }

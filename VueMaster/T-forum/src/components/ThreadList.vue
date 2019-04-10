@@ -8,17 +8,17 @@
 </template>
 
 <script>
-import ThreadListItemVue from './ThreadListItem.vue'
+import ThreadListItemVue from "./ThreadListItem.vue";
 
 export default {
-  name: 'ThreadList',
-  data () {
+  name: "ThreadList",
+  data() {
     return {
       threadsSource: 0
-    }
+    };
   },
   components: {
-    'thread-list-item': ThreadListItemVue
+    "thread-list-item": ThreadListItemVue
   },
   props: {
     threads: {
@@ -26,5 +26,5 @@ export default {
       type: Array
     }
   }
-}
+};
 </script>
